@@ -6,16 +6,13 @@ const allFields = ['controlSet', 'name', 'source', 'description']
 const defaultFields = ['controlSet', 'name']
 
 const reIndexControls = (controls) => {
-  // return controls.reduce((acc, c) => { // DEBUG
-  const foo = controls.reduce((acc, c) => {
+  return controls.reduce((acc, c) => {
     if (!(c.controlSet in acc)) {
       acc[c.controlSet] = []
     }
     acc[c.controlSet].push(c)
     return acc
   }, {})
-  console.log('foo:', foo) // DEBUG
-  return foo // DEBUG
 }
 
 const mdFormatter = ({ data, title, fields }) => {
@@ -76,7 +73,6 @@ const doListControls = ({ app, cache, model, orgKey, reporter, req, res }) => {
     }
   }
   data.sort((a, b) => a.controlSet.localeCompare(b.controlSet) || a.name.localeCompare(b.name))
-  console.log(data)
 
   formatOutput({
     basicTitle : `${orgKey} Controls`,
