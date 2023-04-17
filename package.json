@@ -13,5 +13,18 @@
   "bugs": {
     "url": "https://github.com/liquid-labs/liq-controls/issues"
   },
-  "homepage": "https://github.com/liquid-labs/liq-controls#readme"
+  "homepage": "https://github.com/liquid-labs/liq-controls#readme",
+  "dependencies": {
+    "@liquid-labs/http-smart-response": "^1.0.0-alpha.3",
+    "@liquid-labs/liq-handlers-lib": "^1.0.0-alpha.15",
+    "@liquid-labs/liq-projects-lib": "^1.0.0-alpha.5",
+    "@liquid-labs/liq-qa-lib": "^1.0.0-alpha.8",
+    "http-errors": "^2.0.0"
+  },
+  "bin": {
+    "liq-controls": "dist/liq-controls-cli.js"
+  },
+  "devDependencies": {
+    "@liquid-labs/catalyst-scripts-node-project": "^1.0.0-alpha.4"
+  }
 }
