@@ -30,6 +30,18 @@
     "liq-controls": "dist/liq-controls-cli.js"
   },
   "devDependencies": {
-    "@liquid-labs/catalyst-scripts-node-project": "^1.0.0-alpha.4"
+    "@liquid-labs/catalyst-scripts-node-project": "^1.0.0-alpha.5",
+    "@liquid-labs/liq-core": "^1.0.0-alpha.12",
+    "supertest": "^6.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "catalyst-scripts": {
+    "preset-env": {
+      "targets": {
+        "node": "18.0"
+      }
+    }
   }
 }
