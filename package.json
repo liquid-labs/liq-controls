@@ -4,7 +4,12 @@
   "description": "",
   "main": "dist/liq-controls.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "make",
+    "lint": "make lint",
+    "lint:fix": "make lint-fix",
+    "test": "make test",
+    "preversion": "npm test && make lint",
+    "qa": "make qa"
   },
   "keywords": [],
   "author": "Zane Rockenbaugh <zane@liquid-labs.com>",
@@ -13,5 +18,30 @@
   "bugs": {
     "url": "https://github.com/liquid-labs/liq-controls/issues"
   },
-  "homepage": "https://github.com/liquid-labs/liq-controls#readme"
+  "homepage": "https://github.com/liquid-labs/liq-controls#readme",
+  "dependencies": {
+    "@liquid-labs/http-smart-response": "^1.0.0-alpha.3",
+    "@liquid-labs/liq-handlers-lib": "^1.0.0-alpha.15",
+    "@liquid-labs/liq-projects-lib": "^1.0.0-alpha.5",
+    "@liquid-labs/liq-qa-lib": "^1.0.0-alpha.8",
+    "http-errors": "^2.0.0"
+  },
+  "bin": {
+    "liq-controls": "dist/liq-controls-cli.js"
+  },
+  "devDependencies": {
+    "@liquid-labs/catalyst-scripts-node-project": "^1.0.0-alpha.5",
+    "@liquid-labs/liq-core": "^1.0.0-alpha.12",
+    "supertest": "^6.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "catalyst-scripts": {
+    "preset-env": {
+      "targets": {
+        "node": "18.0"
+      }
+    }
+  }
 }
