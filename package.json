@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@liquid-labs/catalyst-scripts-node-project": "^1.0.0-alpha.5",
-    "@liquid-labs/liq-core": "^1.0.0-alpha.12",
+    "@liquid-labs/liq-core": "file:.yalc/@liquid-labs/liq-core",
     "supertest": "^6.3.3"
   },
   "engines": {
