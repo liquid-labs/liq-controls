@@ -1,6 +1,6 @@
 {
   "name": "@liquid-labs/liq-controls",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-alpha.1",
   "description": "",
   "main": "dist/liq-controls.js",
   "scripts": {
@@ -11,7 +11,9 @@
     "preversion": "npm test && make lint",
     "qa": "make qa"
   },
-  "files": [ "dist/*" ],
+  "files": [
+    "dist/*"
+  ],
   "keywords": [],
   "author": "Zane Rockenbaugh <zane@liquid-labs.com>",
   "license": "UNLICENSED",
