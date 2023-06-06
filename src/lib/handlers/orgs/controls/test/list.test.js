@@ -12,10 +12,11 @@ reporter.log = jest.fn((msg) => { logs.push(msg) })
 reporter.error = jest.fn((msg) => { errors.push(msg) })
 
 const LIQ_PLAYGROUND_PATH = fsPath.resolve(__dirname, 'data', 'playgroundA')
+console.log('LIQ_PLAYGROUND_PATH:', LIQ_PLAYGROUND_PATH) // DEBUG
 const projectA01Path = fsPath.resolve(LIQ_PLAYGROUND_PATH, 'orgA', 'projectA01')
 // const controlsMapPath = fsPath.resolve(LIQ_PLAYGROUND_PATH, 'orgA', 'projectA01', 'data', 'orgs', 'controlsMap.json')
 const expectedControlsMap = [{ controlSet : 'project-create-controls', name : 'project-uses-database-queries' }]
-const pkgRoot = fsPath.resolve(__dirname, '..', '..', '..', '..', '..')
+const pkgRoot = fsPath.resolve(__dirname, '..', '..', '..', '..', '..', '..')
 // const pkgPath = fsPath.join(pkgRoot, 'package.json')
 // const packageJSON = JSON.parse(readFileSync(pkgPath, { encoding : 'utf8' }))
 
@@ -24,8 +25,17 @@ describe('GET:/orgs/:orgKey/controls/list and GET:/orgs/controls/list', () => {
   let cache
 
   beforeAll(async() => {
-    model.initialize({ LIQ_PLAYGROUND_PATH, reporter });
-    ({ app, cache } = await appInit({ model, skipCorePlugins : true, pluginDirs : [pkgRoot], reporter }))
+    process.env.LIQ_REGISTRIES = 'raw.githubusercontent.com/liquid-labs/liq-registry/main/registry.yaml'
+    model.initialize({ LIQ_PLAYGROUND_PATH, reporter })
+    try {
+      ({ app, cache } = await appInit({
+        model,
+        pluginDirs      : [pkgRoot],
+        reporter,
+        skipCorePlugins : true
+      }))
+    }
+    catch (e) { console.log('hey', e) }
   })
 
   afterEach(() => {
@@ -33,7 +43,7 @@ describe('GET:/orgs/:orgKey/controls/list and GET:/orgs/controls/list', () => {
     errors.splice(0, errors.length)
   })
 
-  afterAll(() => { cache.release() }) /* cache has timers that must be stopped */
+  afterAll(() => { cache?.release() }) /* cache has timers that must be stopped */
 
   test('will list named org controls', async() => {
     const { body, headers, status } = await request(app)
