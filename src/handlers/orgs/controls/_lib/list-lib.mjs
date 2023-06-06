@@ -63,7 +63,8 @@ const doListControls = ({ app, cache, model, orgKey, reporter, req, res }) => {
   }
 
   const data = []
-  for (const [controlSetName, sourcedControlSets] of Object.entries(org.innerState.controlsMap).filter(([k]) => !k.startsWith('_'))) {
+  const controlSets = Object.entries(org.innerState.controlsMap).filter(([k]) => !k.startsWith('_'))
+  for (const [controlSetName, sourcedControlSets] of controlSets) {
     for (const [sourceKey, controlData] of Object.entries(sourcedControlSets)) {
       const [sourceOrg, sourceProject] = sourceKey.split('/')
       const source = sourceOrg + '/' + sourceProject
