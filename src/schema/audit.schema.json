@@ -9,6 +9,10 @@
       "description": "The unique name of this control set.",
       "type": "string"
     },
+    "description": {
+      "description": "A description of the audit purpose.",
+      "type": "string"
+    },
     "depends": {
       "description": "One or more control set IDs upon which this control set builds.",
       "type": "array",
