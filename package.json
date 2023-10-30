@@ -29,7 +29,7 @@
     "@liquid-labs/liq-qa-lib": "^1.0.0-alpha.8",
     "@liquid-labs/npm-toolkit": "^1.0.0-alpha.10",
     "@liquid-labs/resource-item": "^1.0.0-alpha.4",
-    "@liquid-labs/resource-model": "file:.yalc/@liquid-labs/resource-model",
+    "@liquid-labs/resource-model": "^1.0.0-alpha.10",
     "http-errors": "^2.0.0",
     "js-yaml": "^4.1.0"
   },
