@@ -15,7 +15,7 @@ const func = ({ app, reporter }) => async(req, res) => {
   if (cwd === undefined) {
     throw createError.BadRequest("Called 'work document' with implied work, but 'X-CWD' header not found.")
   }
-  const { org: orgKey } = getPackageOrgAndBasename({ pkgDir: cwd })
+  const { org: orgKey } = getPackageOrgAndBasename({ pkgDir : cwd })
 
   await doListControls({ app, orgKey, reporter, req, res })
 }

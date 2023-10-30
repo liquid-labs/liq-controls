@@ -3,7 +3,7 @@ import * as fsPath from 'node:path'
 
 import yaml from 'js-yaml'
 
-const getQuestionControls = async ({ app, controlsName, projectName, reporter }) => {
+const getQuestionControls = async({ app, controlsName, projectName, reporter }) => {
   const { projectPath } = app.ext._liqProjects.playgroundMonitor.getProjectData(projectName)
 
   const packageControlsPath = fsPath.join(projectPath, 'controls', controlsName + '.qcontrols.yaml')
@@ -49,4 +49,3 @@ const getQuestionControls = async ({ app, controlsName, projectName, reporter })
 }
 
 export { getQuestionControls }
-

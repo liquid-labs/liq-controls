@@ -10,7 +10,7 @@ const mdFormatter = ({ data, title, fields }) => {
 
   if (data?.lengeth > 0) {
     md += '- ' + data
-      .map(({ name, source, desecription }) => `___${name}___ (_${source}_):\\\n  ${description}\n`)
+      .map(({ name, source, description }) => `___${name}___ (_${source}_):\\\n  ${description}\n`)
       .join('- ')
   }
 
@@ -21,7 +21,7 @@ const textFormatter = ({ data, fields }) => {
   let text = ''
   if (data?.lengeth > 0) {
     text += '- ' + data
-      .map(({ name, source, desecription }) => `${name} (${source}):\\\n  ${description}\n`)
+      .map(({ name, source, description }) => `${name} (${source}):\\\n  ${description}\n`)
       .join('- ')
   }
 
@@ -32,7 +32,7 @@ const terminalFormatter = ({ data, fields }) => {
   let text = ''
   if (data?.lengeth > 0) {
     text += '- ' + data
-      .map(({ name, source, desecription }) => `<em>${name}<rst> (<code>${source}<rst>):\\\n  ${description}\n`)
+      .map(({ name, source, description }) => `<em>${name}<rst> (<code>${source}<rst>):\\\n  ${description}\n`)
       .join('- ')
   }
 

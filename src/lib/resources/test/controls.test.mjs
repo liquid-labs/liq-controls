@@ -1,4 +1,4 @@
-/* global describe expect test */
+/* global beforeAll describe expect test */
 import * as fsPath from 'node:path'
 
 import { Controls } from '../controls'
@@ -9,7 +9,7 @@ describe('Controls', () => {
   beforeAll(async() => {
     const controlsDir = fsPath.join(__dirname, 'data', 'orgRootA', 'data', 'org', 'controls')
 
-    const reporterMock = { log: () => {} }
+    const reporterMock = { log : () => {} }
 
     controls = await Controls.load(controlsDir, reporterMock)
   })

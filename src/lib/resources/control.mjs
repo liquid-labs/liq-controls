@@ -19,15 +19,15 @@ const Control = class extends Item {
 }
 
 Item.bindCreationConfig({
-  itemClass : Control,
-  itemName  : 'control',
-  itemsName : 'controls',
+  itemClass    : Control,
+  itemName     : 'control',
+  itemsName    : 'controls',
   idNormalizer : (id, data) => {
     if (data.type === 'QuestionControl') {
       return QuestionControl.itemConfig.idNormalizer(id, data)
     }
   },
-  keyField  : 'id',
+  keyField : 'id'
 })
 
 export { Control }

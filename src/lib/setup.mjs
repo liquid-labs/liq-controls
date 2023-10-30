@@ -5,13 +5,13 @@ const setup = ({ app }) => {
   app.ext.setupMethods.push({
     name : 'load org controls',
     deps : ['load orgs'],
-    func : loadControls,
+    func : loadControls
   })
 
   app.ext.setupMethods.push({
     name : 'load controls integrations',
     deps : ['setup and load integration plugins'],
-    func : registerControlsIntegrations,
+    func : registerControlsIntegrations
   })
 }
 

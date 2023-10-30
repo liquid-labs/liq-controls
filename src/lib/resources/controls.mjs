@@ -1,7 +1,3 @@
-import * as fs from 'node:fs'
-
-import yaml from 'js-yaml'
-
 import { find } from '@liquid-labs/find-plus'
 import { ItemManager } from '@liquid-labs/resource-model'
 
@@ -11,7 +7,7 @@ import { QuestionControl } from './question-control'
 const Controls = class extends ItemManager {
   constructor({
     items = [],
-    reporter,
+    reporter
   }) {
     super({ items, reporter })
   }
@@ -19,10 +15,10 @@ const Controls = class extends ItemManager {
   static async load(controlsDir, reporter) {
     const items = []
 
-    const questionControlFiles = 
-      await find({ root : controlsDir, tests: [({name}) => name.endsWith('.qcontrols.yaml')] })
+    const questionControlFiles =
+      await find({ root : controlsDir, tests : [({ name }) => name.endsWith('.qcontrols.yaml')] })
 
-    const questionControlItems = await Promise.all(questionControlFiles.map(async (f) => {
+    const questionControlItems = await Promise.all(questionControlFiles.map(async(f) => {
       const questionControl = await QuestionControl.loadData(f)
       return questionControl
     }))
@@ -33,7 +29,7 @@ const Controls = class extends ItemManager {
   }
 
   getControl(controlType) {
-    const candidates = this.list({ rawData: true, sort: false }).filter(({ id }) => id.startsWith(controlType + '/'))
+    const candidates = this.list({ rawData : true, sort : false }).filter(({ id }) => id.startsWith(controlType + '/'))
     if (candidates.length > 1) {
       throw new Error(`Multiple controls for '${controlType}' found; bailing out.`)
     }

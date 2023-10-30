@@ -1,11 +1,11 @@
-/* global afterAll afterEach beforeAll describe expect jest test */
+/* global describe expect jest test */
 import { func } from '../list'
 
 import { doListControls } from '../_lib/list-lib'
 
 jest.mock('../_lib/list-lib', () => ({
   ...jest.requireActual('../_lib/list-lib'),
-  doListControls: jest.fn()
+  doListControls : jest.fn()
 }))
 
 describe('GET:/orgs/XXX/controls/list', () => {
@@ -13,7 +13,7 @@ describe('GET:/orgs/XXX/controls/list', () => {
     let calledOrg
     doListControls.mockImplementation(({ orgKey }) => { calledOrg = orgKey })
 
-    const mockReq = { vars: { orgKey: 'foo' }}
+    const mockReq = { vars : { orgKey : 'foo' } }
 
     const handler = func({})
     handler(mockReq)

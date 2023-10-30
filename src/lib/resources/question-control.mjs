@@ -4,15 +4,13 @@ import { Item } from '@liquid-labs/resource-item'
 
 import yaml from 'js-yaml'
 
-import { Control } from './control'
-
 const QuestionControl = class extends Item {
   constructor(data) {
     super(data, true)
   }
 
   static async loadData(file) {
-    const contents = await fs.readFile(file, { encoding: 'utf8' })
+    const contents = await fs.readFile(file, { encoding : 'utf8' })
     const data = yaml.load(contents)
     data.file = file
     data.type = 'QuestionControl'
@@ -27,11 +25,11 @@ const QuestionControl = class extends Item {
 }
 
 Item.bindCreationConfig({
-  itemClass : QuestionControl,
-  itemName  : 'question control',
-  itemsName : 'question controls',
+  itemClass    : QuestionControl,
+  itemName     : 'question control',
+  itemsName    : 'question controls',
   idNormalizer : (id, data) => data.name + '/' + data.source,
-  keyField  : 'id',
+  keyField     : 'id'
 })
 
 export { QuestionControl }
