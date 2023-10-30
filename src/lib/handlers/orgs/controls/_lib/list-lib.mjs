@@ -2,27 +2,16 @@ import createError from 'http-errors'
 
 import { commonOutputParams, formatOutput } from '@liquid-labs/liq-handlers-lib'
 
-const allFields = ['controlSet', 'name', 'source', 'description']
-const defaultFields = ['controlSet', 'name']
-
-const reIndexControls = (controls) => {
-  return controls.reduce((acc, c) => {
-    if (!(c.controlSet in acc)) {
-      acc[c.controlSet] = []
-    }
-    acc[c.controlSet].push(c)
-    return acc
-  }, {})
-}
+const allFields = ['name', 'source', 'description', 'controls']
+const defaultFields = allFields
 
 const mdFormatter = ({ data, title, fields }) => {
   let md = `# ${title}\n\n`
-  for (const [controlSetName, controls] of Object.entries(reIndexControls(data))) {
-    md += `## ${controlSetName}\n\n`
-    for (const { name, description, source } of controls) {
-      md += `- ${name}: ${description} (from '${source}')\n`
-      md += (fields.includes('source') ? ` (from '${source}')` : '') + '\n'
-    }
+
+  if (data?.lengeth > 0) {
+    md += '- ' + data
+      .map(({ name, source, desecription }) => `___${name}___ (_${source}_):\\\n  ${description}\n`)
+      .join('- ')
   }
 
   return md
@@ -30,13 +19,10 @@ const mdFormatter = ({ data, title, fields }) => {
 
 const textFormatter = ({ data, fields }) => {
   let text = ''
-  for (const [controlSetName, controls] of Object.entries(reIndexControls(data))) {
-    if (text !== '') { text += '\n' }
-    text += controlSetName + '\n'
-    for (const { name, description, source } of controls) {
-      text += `- ${name}: ${description}`
-      text += (fields.includes('source') ? ` (from '${source}')` : '') + '\n'
-    }
+  if (data?.lengeth > 0) {
+    text += '- ' + data
+      .map(({ name, source, desecription }) => `${name} (${source}):\\\n  ${description}\n`)
+      .join('- ')
   }
 
   return text
@@ -44,39 +30,25 @@ const textFormatter = ({ data, fields }) => {
 
 const terminalFormatter = ({ data, fields }) => {
   let text = ''
-  for (const [controlSetName, controls] of Object.entries(reIndexControls(data))) {
-    if (text !== '') { text += '\n' }
-    text += `<h2>${controlSetName}<rst>\n`
-    for (const { name, description, source } of controls) {
-      text += `- <em>${name}<rst>: ${description}`
-      text += (fields.includes('source') ? ` (from <bold>${source}<rst>)` : '') + '\n'
-    }
+  if (data?.lengeth > 0) {
+    text += '- ' + data
+      .map(({ name, source, desecription }) => `<em>${name}<rst> (<code>${source}<rst>):\\\n  ${description}\n`)
+      .join('- ')
   }
 
   return text
 }
 
-const doListControls = ({ app, cache, model, orgKey, reporter, req, res }) => {
-  const org = model.orgs[orgKey]
+const doListControls = ({ app, orgKey, reporter, req, res }) => {
+  const org = app.ext._liqOrgs.orgs[orgKey]
   if (org === undefined) {
-    throw createError.NotFound(`No such org '${orgKey}'.`)
+    throw createError.NotFound(`No such or  g '${orgKey}'.`)
   }
 
-  const data = []
-  const controlSets = Object.entries(org.innerState.controlsMap).filter(([k]) => !k.startsWith('_'))
-  for (const [controlSetName, sourcedControlSets] of controlSets) {
-    for (const [sourceKey, controlData] of Object.entries(sourcedControlSets)) {
-      const [sourceOrg, sourceProject] = sourceKey.split('/')
-      const source = sourceOrg + '/' + sourceProject
-      for (const { name, description } of controlData.controls) {
-        data.push({ controlSet : controlSetName, name, source, description })
-      }
-    }
-  }
-  data.sort((a, b) => a.controlSet.localeCompare(b.controlSet) || a.name.localeCompare(b.name))
+  const data = org.controls.list()
 
   formatOutput({
-    basicTitle : `${orgKey} Controls`,
+    basicTitle : `${orgKey} controls`,
     data,
     allFields,
     defaultFields,
