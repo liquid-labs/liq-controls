@@ -13,6 +13,9 @@ const getQuestionControls = async({ app, controlsName, projectName, reporter }) 
   try {
     controlsContent = await fs.readFile(packageControlsPath, { encoding : 'utf8' })
     reporter.log('  success')
+
+    const controlsSpec = yaml.load(controlsContent)
+    return controlsSpec
   }
   catch (e) {
     if (e.code !== 'ENOENT') {
@@ -22,30 +25,13 @@ const getQuestionControls = async({ app, controlsName, projectName, reporter }) 
     const [orgKey] = projectName.split('/')
     const org = app.ext._liqOrgs.orgs[orgKey]
     if (org !== undefined) {
-      const { projectPath: orgProjectPath } = org
-      const orgControlsPath =
-        fsPath.join(orgProjectPath, 'data', 'org', 'controls', controlsName + '.qcontrols.yaml')
-      reporter.log(`attempting to load '${controlsName}' controls from: ${orgControlsPath}...`)
-      try {
-        controlsContent = await fs.readFile(orgControlsPath)
-        reporter.log('  success')
-      }
-      catch (e) {
-        if (e.code !== 'ENOENT') {
-          throw (e)
-        }
-        reporter.log('  not found')
-      }
+      const controlsSpec = org.controls.getControl(controlsName)
+
+      return controlsSpec
     }
   } // controlsContent load section
 
-  if (controlsContent === undefined) {
-    return undefined
-  } // else
-
-  const controlsSpec = yaml.load(controlsContent)
-
-  return controlsSpec
+  return undefined
 }
 
 export { getQuestionControls }
