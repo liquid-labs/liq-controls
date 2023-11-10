@@ -14,6 +14,9 @@
   "files": [
     "dist/*"
   ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "keywords": [],
   "author": "Zane Rockenbaugh <zane@liquid-labs.com>",
   "license": "UNLICENSED",
@@ -27,7 +30,7 @@
     "@liquid-labs/http-smart-response": "^1.0.0-alpha.3",
     "@liquid-labs/liq-handlers-lib": "^1.0.0-alpha.15",
     "@liquid-labs/liq-qa-lib": "^1.0.0-alpha.8",
-    "@liquid-labs/npm-toolkit": "^1.0.0-alpha.10",
+    "@liquid-labs/npm-toolkit": "file:.yalc/@liquid-labs/npm-toolkit",
     "@liquid-labs/resource-item": "^1.0.0-alpha.4",
     "@liquid-labs/resource-model": "file:.yalc/@liquid-labs/resource-model",
     "http-errors": "^2.0.0",
@@ -38,15 +41,5 @@
   },
   "devDependencies": {
     "@liquid-labs/catalyst-scripts-node-project": "^1.0.0-alpha.5"
-  },
-  "engines": {
-    "node": ">=18.0.0"
-  },
-  "catalyst-scripts": {
-    "preset-env": {
-      "targets": {
-        "node": "18.0"
-      }
-    }
   }
 }
