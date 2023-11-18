@@ -10,7 +10,7 @@ const setup = ({ app }) => {
 
   app.ext.setupMethods.push({
     name : 'load controls integrations',
-    deps : ['setup and load integration plugins'],
+    deps : ['setup integrations'],
     func : registerControlsIntegrations
   })
 }
