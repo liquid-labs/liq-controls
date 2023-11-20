@@ -1,6 +1,6 @@
 {
   "name": "@liquid-labs/liq-controls",
-  "version": "1.0.0-alpha.4",
+  "version": "1.0.0-alpha.5",
   "description": "Enables and manages policy controls for a @liquid-labs/plugable-express server.",
   "main": "dist/liq-controls.js",
   "scripts": {
