@@ -4,7 +4,7 @@ import * as fsPath from 'node:path'
 import yaml from 'js-yaml'
 
 const getQuestionControls = async({ app, controlsName, projectName, reporter }) => {
-  const { pkgJSON, projectPath } = app.ext._liqProjects.playgroundMonitor.getProjectData(projectName)
+  const { packageJSON, projectPath } = await app.ext._liqProjects.playgroundMonitor.getProjectData(projectName)
 
   const packageControlsPath = fsPath.join(projectPath, 'controls', controlsName + '.qcontrols.yaml')
   let controlsContent
@@ -25,7 +25,7 @@ const getQuestionControls = async({ app, controlsName, projectName, reporter }) 
     let [orgKey, basename] = projectName.split('/')
     if (basename === undefined) {
       // then we have an unscoped project and we look at the package.json to determine the org key
-      orgKey = pkgJSON._comply?.orgKey
+      orgKey = packageJSON._comply?.orgKey
       if (orgKey === undefined) {
         throw new Error("Did not find expected '_comply.orgKey' in the 'package.json' file. This value must be defined for unscoped packages.")
       }
