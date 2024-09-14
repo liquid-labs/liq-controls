@@ -1,7 +1,7 @@
 import { getQuestionControls } from './get-question-controls'
 
 const registerControlsIntegrations = async({ app, reporter }) => {
-  reporter.log("Registering '@liquid-labs/liq-controls' integretions...")
+  reporter.log("Registering '@liquid-labs/liq-controls' integration...")
   app.ext.integrations.register({
     hooks : {
       getQuestionControls
