@@ -12,7 +12,8 @@
     "qa": "make qa"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "plugable-express.yaml"
   ],
   "engines": {
     "node": ">=18.0.0"

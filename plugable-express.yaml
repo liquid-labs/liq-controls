@@ -1,0 +1,3 @@
+dependencies:
+  - '@liquid-labs/liq-projects'
+  - '@liquid-labs/liq-orgs'
