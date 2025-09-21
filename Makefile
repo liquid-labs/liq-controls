@@ -21,20 +21,16 @@ CATALYST_JS_JEST:=npx jest
 CATALYST_JS_ROLLUP:=npx rollup
 CATALYST_JS_ESLINT:=npx eslint
 
-# all source files (cli and lib)
+# all source files
 CATALYST_JS_ALL_FILES_SRC:=$(shell find $(SRC) \( -name "*.js" -o -name "*.mjs" -o -name "*.cjs" \) -not -path "*/test/data/*" -not -path "*/test/data-*/*")
 CATALYST_JS_TEST_FILES_SRC:=$(shell find $(SRC) -name "*.js" -not -path "*/test/data/*" -not -path "*/test/data-*/*" -type f)
 CATALYST_JS_TEST_FILES_BUILT:=$(patsubst $(SRC)/%, test-staging/%, $(CATALYST_JS_TEST_FILES_SRC))
-# all test data (cli and lib)
+# all test data
 CATALYST_JS_TEST_DATA_SRC:=$(shell find $(SRC) -type f \( -path "*/test/data/*"  -o -path "*/test/data-*/*" \))
 CATALYST_JS_TEST_DATA_BUILT:=$(patsubst $(SRC)/%, $(TEST_STAGING)/%, $(CATALYST_JS_TEST_DATA_SRC))
 # lib specific files
 CATALYST_JS_LIB_FILES_SRC:=$(shell find $(CATALYST_JS_LIB_SRC_PATH) \( -name "*.js" -o -name "*.mjs" -o -name "*.cjs" \) -not -path "*/test/*" -not -name "*.test.js")
 CATALYST_JS_LIB:=dist/$(BUILD_KEY).js
-# cli speciifc files
-ifdef CATALYST_JS_CLI_SRC_PATH
-CATALYST_JS_CLI_FILES_SRC:=$(shell find $(CATALYST_JS_CLI_SRC_PATH) \( -name "*.js" -o -name "*.mjs" -o -name "*.cjs" \) -not -path "*/test/*" -not -name "*.test.js")
-endif
 
 LINT_IGNORE_PATTERNS:=--ignore-pattern '$(DIST)/**/*' \
 --ignore-pattern '$(TEST_STAGING)/**/*' \
@@ -55,19 +51,6 @@ $(CATALYST_JS_LIB): package.json $(CATALYST_JS_LIB_FILES_SRC)
 	  JS_OUT=$@ \
 		$(CATALYST_JS_ROLLUP) --config $(INSTALL_BASE)/dist/rollup/rollup.config.mjs
 endif
-
-ifdef CATALYST_JS_CLI_SRC_PATH
-BUILD_TARGETS+=$(CATALYST_JS_CLI)
-
-# see DEVELOPER_NOTES.md 'CLI build'
-$(CATALYST_JS_CLI): package.json $(CATALYST_JS_ALL_FILES_SRC)
-	JS_BUILD_TARGET=$(CATALYST_JS_CLI_SRC_PATH)/index.js \
-	  JS_OUT=$@ \
-	  JS_OUT_PREAMBLE='#!/usr/bin/env -S node --enable-source-maps' \
-		$(CATALYST_JS_ROLLUP) --config $(INSTALL_BASE)/dist/rollup/rollup.config.mjs
-	chmod a+x $@
-endif
-
 
 # test
 UNIT_TEST_REPORT:=$(QA)/unit-test.txt

@@ -21,7 +21,10 @@
   "keywords": [],
   "author": "Zane Rockenbaugh <zane@liquid-labs.com>",
   "license": "UNLICENSED",
-  "repository": "git+ssh://git@github.com/liquid-labs/liq-controls.git",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/liquid-labs/liq-controls.git"
+  },
   "bugs": {
     "url": "https://github.com/liquid-labs/liq-controls/issues"
   },
@@ -36,9 +39,6 @@
     "@liquid-labs/resource-model": "^1.0.0-alpha.10",
     "http-errors": "^2.0.0",
     "js-yaml": "^4.1.0"
-  },
-  "bin": {
-    "liq-controls": "dist/liq-controls-cli.js"
   },
   "devDependencies": {
     "@liquid-labs/catalyst-scripts-node-project": "^1.0.0-alpha.5"
